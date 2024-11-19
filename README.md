@@ -1,1 +1,1 @@
-# DevC-WiseSayingApp
+# devC-WiseSayingApp
