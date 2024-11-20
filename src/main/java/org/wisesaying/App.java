@@ -24,7 +24,7 @@ public class App {
     public void addWiseSaying(WiseSaying wiseSaying) {
         wiseSayings[countOfContact] = wiseSaying;
         countOfContact++;
-        System.out.println(">>> 데이터가 저장되었습니다.\n");
+        System.out.println(">>> " + countOfContact + "번 데이터가 저장되었습니다.\n");
     }
 
     // 메소드 - 데이터 공백 확인
