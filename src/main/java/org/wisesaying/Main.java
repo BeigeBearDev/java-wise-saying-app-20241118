@@ -7,6 +7,7 @@ public class Main {
         System.out.println("====== 명언 앱 ======");
         System.out.println(">> 1. 종료");
         System.out.println(">> 2. 등록");
+        System.out.println(">> 3. 전체 목록");
         System.out.print  ("입력 : ");
     }
 
@@ -30,6 +31,12 @@ public class Main {
                 System.out.println("▶▶ 등록 ◀◀");
                 System.out.println("> 등록할 명언과 작가를 입력하세요.");
                 app.addWiseSaying(app.inputWiseSayingData());
+            }
+
+            // 3. 전체 조회 메뉴
+            if(cmd.equals("전체 목록") || cmd.equals("3")) {
+                System.out.println("▶▶ 명언 목록 ◀◀");
+                app.printAllWiseSaying();
             }
 
         }

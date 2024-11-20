@@ -27,6 +27,26 @@ public class App {
         System.out.println(">>> " + countOfContact + "번 데이터가 저장되었습니다.\n");
     }
 
+    // 메소드 - 명언 출력
+    public void printWiseSaying(WiseSaying wiseSaying) {
+        System.out.println(wiseSaying.getWiseSaying() + " / " + wiseSaying.getWriter());
+    }
+
+    // 메소드 - 모든 명언 출력
+    public void printAllWiseSaying() {
+        System.out.println("==============================================");
+        if(wiseSayings[0] == null) {
+            System.out.println("등록된 명언이 없습니다.");
+        } else {
+            System.out.println("번호 / 작가 / 명언");
+            for(int i=0; i<countOfContact; i++) {
+                System.out.print((i+1) + "번 / ");
+                printWiseSaying(wiseSayings[i]);
+            }
+        }
+        System.out.println("==============================================\n");
+    }
+
     // 메소드 - 데이터 공백 확인
     public String emptyCheckData(String dataType) {
         cmd = new Scanner(System.in);
@@ -41,7 +61,7 @@ public class App {
                 System.out.println("> 입력 오류ㅣ다시 입력해주세요.");
                 continue; // 계속 입력
             } else {
-                System.out.println("> " + dataType + "이(가) 정상 입력되었습니다.");
+                // System.out.println("> " + dataType + "이(가) 정상 입력되었습니다.");
                 return inputData;
             }
 
