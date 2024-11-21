@@ -46,29 +46,18 @@ public class App {
         }
     }
 
-
-
-
-
-    /*
-
     // 명언 삭제
-    public void deleteWiseSaying(int num) {
-        if(num < 1 || index < num) {
-            System.out.println("> 입력 오류ㅣ다시 입력해주세요.");
-        }
-        for (int i = (num-1); i < index; i++) {
-            wiseSayings[num-1] = wiseSayings[num];
-            index--;
-            System.out.println("> " + num + "번 명언이 삭제되었습니다.");
-            return;
+    public void deleteWiseSaying(String cmd) {
+        int indexbf = cmd.indexOf("=");
+        String targetIndex = cmd.substring(indexbf+1);
+        int targetIndexNum = Integer.parseInt(targetIndex);
+        if(targetIndexNum > index) {
+            System.out.println(">>> 존재하지 않는 번호입니다. 다시 입력해주세요.\n");
+        } else {
+            wiseSayings.remove(targetIndexNum-1);
+            System.out.println(">>> " + targetIndexNum + "번 명언이 삭제되었습니다.\n");
         }
     }
-
-
-
-
-    */
 
     // 데이터 공백 및 특수문자 확인
     public String checkData(String dataType) {

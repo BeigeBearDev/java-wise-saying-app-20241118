@@ -10,7 +10,6 @@ public class Main {
         System.out.print  ("명령 > ");
     }
 
-
     // 메인 메소드
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
@@ -33,16 +32,11 @@ public class Main {
                 app.printAllWiseSaying();
             }
 
-            /*
             // 삭제 메뉴
-            if(cmd.equals("삭제")) {
+            if(cmd.startsWith("삭제")) {
                 System.out.println("▶▶ 명언 삭제 ◀◀");
-                System.out.println("> 삭제할 명언의 번호를 입력하세요.");
-                app.deleteWiseSaying(sc.nextInt());
+                app.deleteWiseSaying(cmd);
             }
-
-
-            */
 
             // 종료 메뉴
             if(cmd.equals("종료")) {
