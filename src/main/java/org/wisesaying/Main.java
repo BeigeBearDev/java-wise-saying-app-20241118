@@ -3,15 +3,15 @@ package org.wisesaying;
 import java.util.Scanner;
 
 public class Main {
+    // 메뉴 출력 메소드
     public static void printMenu() {
-        System.out.println("====== 명언 앱 ======");
-        System.out.println(">> 1. 종료");
-        System.out.println(">> 2. 등록");
-        System.out.println(">> 3. 전체 목록");
-        System.out.print  ("입력 : ");
+        System.out.println("========== 명언 앱 ==========");
+        System.out.println("[ 등록 / 삭제 / 목록 / 종료 ]");
+        System.out.print  ("명령 > ");
     }
 
 
+    // 메인 메소드
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         App app = new App();
@@ -20,25 +20,35 @@ public class Main {
             printMenu();
             String cmd = sc.nextLine();
 
-            // 1. 종료 메뉴
-            if(cmd.equals("종료") || cmd.equals("1")) {
-                System.out.println("> 앱이 종료되었습니다.\n");
-                break;
-            }
-
-            // 2. 등록 메뉴
-            if(cmd.equals("등록") || cmd.equals("2")) {
-                System.out.println("▶▶ 등록 ◀◀");
+            // 등록 메뉴
+            if(cmd.equals("등록")) {
+                System.out.println("▶▶ 명언 등록 ◀◀");
                 System.out.println("> 등록할 명언과 작가를 입력하세요.");
-                app.addWiseSaying(app.inputWiseSayingData());
+                app.addWiseSaying(app.inputWiseSaying());
             }
 
-            // 3. 전체 조회 메뉴
-            if(cmd.equals("전체 목록") || cmd.equals("3")) {
+            // 목록 메뉴
+            if(cmd.equals("목록")) {
                 System.out.println("▶▶ 명언 목록 ◀◀");
                 app.printAllWiseSaying();
             }
 
+            /*
+            // 삭제 메뉴
+            if(cmd.equals("삭제")) {
+                System.out.println("▶▶ 명언 삭제 ◀◀");
+                System.out.println("> 삭제할 명언의 번호를 입력하세요.");
+                app.deleteWiseSaying(sc.nextInt());
+            }
+
+
+            */
+
+            // 종료 메뉴
+            if(cmd.equals("종료")) {
+                System.out.println("> 앱이 종료되었습니다.\n");
+                break;
+            }
         }
 
         sc.close();

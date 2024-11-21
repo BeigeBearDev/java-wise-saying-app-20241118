@@ -1,54 +1,77 @@
 package org.wisesaying;
 
+import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class App {
-    WiseSaying[] wiseSayings;
-    int countOfContact = 0;
+    ArrayList<WiseSaying> wiseSayings = new ArrayList<>();
+    int index = 1; // 마지막으로 저장한 번호
     Scanner cmd; // 스캐너 활성화
 
-    // 생성자
-    public App() {
-        wiseSayings = new WiseSaying[10];
+    // 등록 데이터 입력
+    public WiseSaying inputWiseSaying() {
+        String content = checkData("명언"); // 공백확인 후 대입
+        String author = checkData("작가");
+
+        return new WiseSaying(index, content, author); // 등록 객체 리턴, index를 id에 삽입
     }
 
-    // 메소드 - 등록
-    public WiseSaying inputWiseSayingData() {
-        String wisesaying = emptyCheckData("명언"); // 공백확인 후 대입
-        String writer = emptyCheckData("작가");
-
-        return new WiseSaying(wisesaying, writer); // 등록 객체 리턴
+    // 등록(리스트에 삽입)
+    public void addWiseSaying(WiseSaying inputWiseSaying) {
+        wiseSayings.add(inputWiseSaying);
+        System.out.println(">>> " + index + "번 명언이 등록되었습니다.\n");
+        index++;
     }
 
-    // 메소드 - 데이터 저장(배열에 객체)
-    public void addWiseSaying(WiseSaying wiseSaying) {
-        wiseSayings[countOfContact] = wiseSaying;
-        countOfContact++;
-        System.out.println(">>> " + countOfContact + "번 데이터가 저장되었습니다.\n");
+    // 출력
+    public void printWiseSaying(WiseSaying outputWiseSaying) {
+        System.out.println(outputWiseSaying.getId() + " / "
+                         + outputWiseSaying.getContent() + " / "
+                         + outputWiseSaying.getAuthor() );
     }
 
-    // 메소드 - 명언 출력
-    public void printWiseSaying(WiseSaying wiseSaying) {
-        System.out.println(wiseSaying.getWiseSaying() + " / " + wiseSaying.getWriter());
-    }
-
-    // 메소드 - 모든 명언 출력
+    // 목록 출력
     public void printAllWiseSaying() {
-        System.out.println("==============================================");
-        if(wiseSayings[0] == null) {
-            System.out.println("등록된 명언이 없습니다.");
+        if (wiseSayings.isEmpty()) {
+            System.out.println(">>> 등록된 명언이 없습니다.\n");
         } else {
-            System.out.println("번호 / 작가 / 명언");
-            for(int i=0; i<countOfContact; i++) {
-                System.out.print((i+1) + "번 / ");
-                printWiseSaying(wiseSayings[i]);
+            System.out.println("==============================================");
+            System.out.println("번호 / 명언 / 작가");
+            for (int i = wiseSayings.size(); 0 < i; i--) { // 정렬은 최신저장순
+                printWiseSaying(wiseSayings.get(i-1));
             }
+            System.out.println("==============================================\n");
         }
-        System.out.println("==============================================\n");
     }
 
-    // 메소드 - 데이터 공백 확인
-    public String emptyCheckData(String dataType) {
+
+
+
+
+    /*
+
+    // 명언 삭제
+    public void deleteWiseSaying(int num) {
+        if(num < 1 || index < num) {
+            System.out.println("> 입력 오류ㅣ다시 입력해주세요.");
+        }
+        for (int i = (num-1); i < index; i++) {
+            wiseSayings[num-1] = wiseSayings[num];
+            index--;
+            System.out.println("> " + num + "번 명언이 삭제되었습니다.");
+            return;
+        }
+    }
+
+
+
+
+    */
+
+    // 데이터 공백 및 특수문자 확인
+    public String checkData(String dataType) {
         cmd = new Scanner(System.in);
 
         while (true) {
@@ -56,15 +79,21 @@ public class App {
             System.out.print(dataType + ": ");
             String inputData = cmd.nextLine();
 
-            // 앞뒤공백제거 > 공백문자열 확인.
+            // 특수문자 확인(알파벳, 숫자, 한글을 제외한 모든문자)
+            String regex = "[^a-zA-Z0-9가-힣ㄱ-ㅎㅏ-ㅣ]";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(inputData);
+
+            // 앞뒤공백제거 > 공백 확인
             if(inputData.trim().isEmpty()) {
-                System.out.println("> 입력 오류ㅣ다시 입력해주세요.");
-                continue; // 계속 입력
+                System.out.println("> 입력내용 없음, 다시 입력해주세요.");
+            // 특수문자 포함 확인
+            } else if(matcher.find()) {
+                System.out.println("> 특수문자 포함, 다시 입력해주세요.");
             } else {
-                // System.out.println("> " + dataType + "이(가) 정상 입력되었습니다.");
+                System.out.println("> " + dataType + "이(가) 정상 입력되었습니다.");
                 return inputData;
             }
-
         }
     }
 }

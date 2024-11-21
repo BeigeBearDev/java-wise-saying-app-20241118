@@ -2,32 +2,60 @@ package org.wisesaying;
 
 public class WiseSaying {
     // 필드
-    private String wiseSaying;
-    private String writer;
+    private int id;
+    private String content;
+    private String author;
 
     // 생성자
-    protected WiseSaying(String wiseSaying, String writer) {
-        this.wiseSaying = wiseSaying;
-        this.writer = writer;
+    protected WiseSaying(String content, String author) {
+        this.content = content;
+        this.author = author;
     }
 
-    // 출력 메소드
+    protected WiseSaying(int id, String content, String author) {
+        this.id = id;
+        this.content = content;
+        this.author = author;
+    }
+
+    // 출력
     protected void printInfo() {
-        System.out.println("명언: " + wiseSaying);
-        System.out.println("작가: " + writer);
+        System.out.println("명언: " + content);
+        System.out.println("작가: " + author);
     }
 
     // Get Set
-    protected String getWiseSaying() {
-        return wiseSaying;
+    public int getId() {
+        return id;
     }
-    protected void setWiseSaying(String wiseSaying) {
-        this.wiseSaying = wiseSaying;
+
+    public void setId(int id) {
+        this.id = id;
     }
-    protected String getWriter() {
-        return writer;
+
+    public String getContent() {
+        return content;
     }
-    protected void setWriter(String writer) {
-        this.writer = writer;
+
+    public void setContent(String content) {
+        this.content = content;
     }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    // toString
+    /*
+    @Override
+    public static String toString() {
+        return this.id + " / " + this.content + " / " + this.author;
+        // 번호 / 명언 / 작가
+    }
+     */
+
 }
