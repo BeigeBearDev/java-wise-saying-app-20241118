@@ -37,25 +37,13 @@ public class WiseSaying {
         return content;
     }
 
-    public void setContent(String content) {
-        this.content = content;
-    }
-
     public String getAuthor() {
         return author;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
-
     // toString
-    /*
     @Override
-    public static String toString() {
-        return this.id + " / " + this.content + " / " + this.author;
-        // 번호 / 명언 / 작가
+    public String toString() {
+        return id + " / " + content + " / " + author;
     }
-     */
-
 }

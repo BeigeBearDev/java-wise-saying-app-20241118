@@ -27,9 +27,7 @@ public class App {
 
     // 출력
     public void printWiseSaying(WiseSaying outputWiseSaying) {
-        System.out.println(outputWiseSaying.getId() + " / "
-                         + outputWiseSaying.getContent() + " / "
-                         + outputWiseSaying.getAuthor() );
+        System.out.println(outputWiseSaying); // toString 생략
     }
 
     // 목록 출력
@@ -39,24 +37,49 @@ public class App {
         } else {
             System.out.println("==============================================");
             System.out.println("번호 / 명언 / 작가");
-            for (int i = wiseSayings.size(); 0 < i; i--) { // 정렬은 최신저장순
-                printWiseSaying(wiseSayings.get(i-1));
+            for (int i = wiseSayings.size()-1; 0 < i; i--) { // 정렬은 최신저장순
+                printWiseSaying(wiseSayings.get(i));
             }
             System.out.println("==============================================\n");
         }
     }
 
-    // 명언 삭제
+
+    // 명언 삭제 메소드 (예외 적용)
     public void deleteWiseSaying(String cmd) {
-        int indexbf = cmd.indexOf("=");
-        String targetIndex = cmd.substring(indexbf+1);
-        int targetIndexNum = Integer.parseInt(targetIndex);
-        if(targetIndexNum > index) {
-            System.out.println(">>> 존재하지 않는 번호입니다. 다시 입력해주세요.\n");
-        } else {
-            wiseSayings.remove(targetIndexNum-1);
-            System.out.println(">>> " + targetIndexNum + "번 명언이 삭제되었습니다.\n");
+        // 명령에서 index 분리
+        if (!cmd.startsWith("삭제?id=")) {
+            System.out.println(">>> 잘못된 명령 형식입니다. 형식: 삭제?id={번호}\n");
+            return;
         }
+        try {
+            // 삭제?id= 이후의 번호 추출
+            String targetIdString = cmd.substring(cmd.indexOf("=") + 1).trim();
+            int targetId = Integer.parseInt(targetIdString);
+
+            // targetId로 객체 찾기
+            WiseSaying targetWiseSaying = null;
+            for (WiseSaying wiseSaying : wiseSayings) {
+                if (wiseSaying.getId() == targetId) {
+                    targetWiseSaying = wiseSaying;
+                    break;
+                }
+            }
+
+            // 객체 null여부 확인
+            if(targetWiseSaying == null) {
+                System.out.println(">>> 존재하지 않는 번호입니다. 다시 입력해주세요.\n");
+                return;
+            }
+
+            // 명언 삭제
+            wiseSayings.remove(targetId - 1);
+            System.out.println(">>> " + targetId + "번 명언이 삭제되었습니다.\n");
+        }
+        catch (NumberFormatException e) {
+            System.out.println(">>> 잘못된 번호 형식입니다. 숫자만 입력해주세요.\n");
+        }
+
     }
 
     // 데이터 공백 및 특수문자 확인
