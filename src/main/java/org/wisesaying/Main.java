@@ -6,7 +6,7 @@ public class Main {
     // 메뉴 출력 메소드
     public static void printMenu() {
         System.out.println("========== 명언 앱 ==========");
-        System.out.println("[ 등록 / 삭제 / 목록 / 종료 ]");
+        System.out.println("[ 등록 / 삭제 / 수정 / 목록 / 종료 ]");
         System.out.print  ("명령 > ");
     }
 
@@ -36,6 +36,21 @@ public class Main {
             if(cmd.startsWith("삭제")) {
                 System.out.println("▶▶ 명언 삭제 ◀◀");
                 app.deleteWiseSaying(cmd);
+            }
+
+            // 수정 메뉴
+            if(cmd.startsWith("수정")) {
+                System.out.println("▶▶ 명언 수정 ◀◀");
+                WiseSaying targetWiseSaying = app.findTargetWiseSaying(cmd, "수정");
+                if(targetWiseSaying != null) {
+                    System.out.println("명언(기존): " + targetWiseSaying.getContent());
+                    System.out.print("명언: ");
+                    String newContent = sc.nextLine();
+                    System.out.println("작가(기존): " + targetWiseSaying.getAuthor());
+                    System.out.print("작가: ");
+                    String newAuthor = sc.nextLine();
+                    app.updateWiseSaying(cmd, newContent, newAuthor);
+                }
             }
 
             // 종료 메뉴
